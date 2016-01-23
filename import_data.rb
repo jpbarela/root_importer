@@ -1,8 +1,8 @@
-file_name = ARGV.first
-data_file = File.open file_name
-drivers = []
-data_file.each_line do |line|
-  drivers.push line[7..-1].strip if line[0, 6] == 'Driver'
-end
+require './app/importer'
+require 'pry'
 
-drivers.each { |driver| print "#{driver}:\n" }
+file_name = ARGV.first
+import = Importer.new file_name
+import.process
+
+import.drivers.each { |driver| print driver }
