@@ -19,7 +19,7 @@ RSpec.describe Importer do
 
   describe '#process' do
     context 'when a Driver line is read' do
-      let(:importer){ Importer.new 'example.txt' }
+      let(:importer) { Importer.new 'example.txt' }
 
       before do
         data = instance_double(File)
@@ -35,6 +35,18 @@ RSpec.describe Importer do
       it 'adds the driver to the driver array' do
         importer.process
         expect(importer.drivers).to eq [Driver.new('Dan')]
+      end
+    end
+
+    context 'when a Trip line is read' do
+      it 'adds the trip to the Driver when the trip is associated to an existing Driver' do
+        data = instance_double(File)
+        allow(data).to receive(:each_line).and_yield('Trip Dan 07:15 07:45 17.3')
+        allow(File).to receive(:open) { data }
+        test_driver = Driver.new 'Dan'
+        importer = Importer.new 'example.txt'
+        importer.process
+        expect(test_driver.miles).to be 17
       end
     end
   end
