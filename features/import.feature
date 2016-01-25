@@ -4,14 +4,6 @@ Feature:
 
   Scenario:
     When I import the file 'sample.txt'
-    Then I see a listing of the drivers
-
-  Scenario:
-    When I import the file 'sample.txt'
-    Then I see the trip statistics for each driver
-
-  Scenario:
-    When I import the file 'sample.txt'
     Then I see the drivers sorted by distance
 
   Scenario:

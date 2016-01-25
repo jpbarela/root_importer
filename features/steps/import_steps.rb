@@ -7,13 +7,9 @@ Then(/^I see a listing of the drivers$/) do
   expect(drivers).to match_array %w(Alex Dan Ilya)
 end
 
-Then(/^I see the trip statistics for each driver$/) do
-  drivers = @report.split("\n")
-  expect(drivers).to match_array ['Alex: 42 miles @ 34 mph', 'Dan: 30 miles @ 36 mph', 'Ilya: 0 miles']
-end
-
 Then(/^I see the drivers sorted by distance$/) do
-  pending # express the regexp above with the code you wish you had
+  drivers = @report.split("\n")
+  expect(drivers).to eq ['Alex: 42 miles @ 34 mph', 'Dan: 30 miles @ 36 mph', 'Ilya: 0 miles']
 end
 
 Then(/^I see invalid trips excluded$/) do
