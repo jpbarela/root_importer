@@ -13,5 +13,6 @@ Then(/^I see the drivers sorted by distance$/) do
 end
 
 Then(/^I see invalid trips excluded$/) do
-  pending # express the regexp above with the code you wish you had
+  drivers = @report.split("\n")
+  expect(drivers).to eq ['Alex: 42 miles @ 34 mph', 'Dan: 30 miles @ 36 mph', 'Ilya: 0 miles']
 end

@@ -26,8 +26,9 @@ class Driver
   end
 
   def add_trip(start_time, end_time, miles)
-    @miles += miles
     trip_time = (Time.parse(end_time) - Time.parse(start_time)) / (60 * 60)
+    return if miles / trip_time < 5 || miles / trip_time > 100
+    @miles += miles
     @time += trip_time
   end
 

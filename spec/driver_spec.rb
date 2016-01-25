@@ -68,7 +68,7 @@ RSpec.describe Driver do
     end
 
     it 'returns -1 if the calling driver has driven fewer miles' do
-      expect(sunday_driver <=> long_haul_driver).to be -1
+      expect(sunday_driver <=> long_haul_driver).to be(-1)
     end
 
     it 'returns 1 if the calling driver has driven more miles' do
@@ -77,9 +77,19 @@ RSpec.describe Driver do
   end
 
   describe '#add_trip' do
-    it 'adds the number of miles to the drivers total' do
+    it 'adds the number of miles to the drivers total for valid trips' do
       test_driver.add_trip '1:00', '1:30', 25
       expect(test_driver.miles).to be 25
+    end
+
+    it 'does not include trips under 5 mph' do
+      test_driver.add_trip '01:00', '02:00', 3.5
+      expect(test_driver.miles).to be 0
+    end
+
+    it 'does not include trips over 100 mph' do
+      test_driver.add_trip '01:00', '02:00', 130.5
+      expect(test_driver.miles).to be 0
     end
   end
 
