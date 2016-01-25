@@ -45,6 +45,37 @@ RSpec.describe Driver do
     end
   end
 
+  describe '#<=>' do
+    let(:long_haul_driver) do
+      long_haul_driver = Driver.new 'Trucker'
+      long_haul_driver.add_trip '07:00', '19:00', 150
+      long_haul_driver
+    end
+    let(:sunday_driver) do
+      sunday_driver = Driver.new 'Church Lady'
+      sunday_driver.add_trip '08:45', '08:55', 2
+      sunday_driver
+    end
+
+    it 'returns nil unless the second object is a Driver' do
+      expect(long_haul_driver <=> 175).to be_nil
+    end
+
+    it 'returns 0 if the two drivers have driven the same number of miles' do
+      commerical_driver = Driver.new 'Commercial'
+      commerical_driver.add_trip '07:00', '19:00', 150
+      expect(long_haul_driver <=> commerical_driver).to be 0
+    end
+
+    it 'returns -1 if the calling driver has driven fewer miles' do
+      expect(sunday_driver <=> long_haul_driver).to be -1
+    end
+
+    it 'returns 1 if the calling driver has driven more miles' do
+      expect(long_haul_driver <=> sunday_driver).to be 1
+    end
+  end
+
   describe '#add_trip' do
     it 'adds the number of miles to the drivers total' do
       test_driver.add_trip '1:00', '1:30', 25

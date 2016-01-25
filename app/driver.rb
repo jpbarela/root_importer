@@ -20,6 +20,11 @@ class Driver
     other.is_a?(Driver) && name == other.name
   end
 
+  def <=>(other)
+    return nil unless other.is_a?(Driver)
+    miles <=> other.miles
+  end
+
   def add_trip(start_time, end_time, miles)
     @miles += miles
     trip_time = (Time.parse(end_time) - Time.parse(start_time)) / (60 * 60)
